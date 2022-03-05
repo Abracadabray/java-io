@@ -20,10 +20,7 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-
         if (evt instanceof IdleStateEvent) {
-
-            //将  evt 向下转型 IdleStateEvent
             IdleStateEvent event = (IdleStateEvent) evt;
             String eventType = null;
             switch (event.state()) {
@@ -41,7 +38,7 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
             System.out.println("服务器做相应处理..");
 
             //如果发生空闲，我们关闭通道
-            // ctx.channel().close();
+            ctx.channel().close();
         }
     }
 }
