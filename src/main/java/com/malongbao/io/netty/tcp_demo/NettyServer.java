@@ -39,6 +39,7 @@ public class NettyServer {
 //                的管道设置处理器
                 .childHandler(new ChildHandlerChannelInitializer());
         System.out.println("============服务器准备完成============");
+        //future机制
         ChannelFuture channelFuture = serverBootstrap.bind(9999).sync();
         channelFuture.addListener(new ChannelFutureListener() {
             @Override
