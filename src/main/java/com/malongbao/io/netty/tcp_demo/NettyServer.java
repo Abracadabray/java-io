@@ -35,7 +35,8 @@ public class NettyServer {
 //                        System.out.println("客户socketchannel hashcode=" + ch.hashCode());
 //                        ch.pipeline().addLast(new NettyServerHandler());
 //                    }
-//                }); // 给我们的workerGroup 的 EventLoop 对应的管道设置处理器
+//                }); // 给我们的workerGroup 的 EventLoop 对应
+//                的管道设置处理器
                 .childHandler(new ChildHandlerChannelInitializer());
         System.out.println("============服务器准备完成============");
         ChannelFuture channelFuture = serverBootstrap.bind(9999).sync();
@@ -59,6 +60,7 @@ public class NettyServer {
             //可以使用一个集合管理 SocketChannel， 再推送消息时，可以将业务加入到各个channel 对应的 NIOEventLoop 的 taskQueue 或者 scheduleTaskQueue
             System.out.println("客户schannel hashcode=" + channel.hashCode());
             channel.pipeline().addLast(new NettyServerHandler());
+//            channel.pipeline().addLast(new NettyServerHandler1());
         }
     }
 }

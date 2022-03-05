@@ -8,16 +8,12 @@ package com.malongbao.io.netty.tcp_demo;
  * @since JDK 1.8
  */
 
-import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.ChannelPipeline;
 import io.netty.util.CharsetUtil;
 
 import java.util.concurrent.TimeUnit;
-
 /**
  * 说明
  * 1. 我们自定义一个Handler 需要继续netty 规定好的某个HandlerAdapter(规范)
@@ -43,7 +39,7 @@ public class NettyServerHandler1 extends ChannelInboundHandlerAdapter {
             public void run() {
                 try {
                     Thread.sleep(5 * 1000);
-                    channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer("hello, 客户端~(>^ω^<)喵2", CharsetUtil.UTF_8));
+                    channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer("hello, 客户端--------------2", CharsetUtil.UTF_8));
                     System.out.println("channel code=" + channelHandlerContext.channel().hashCode());
                 } catch (Exception ex) {
                     System.out.println("发生异常" + ex.getMessage());
@@ -54,7 +50,7 @@ public class NettyServerHandler1 extends ChannelInboundHandlerAdapter {
         channelHandlerContext.channel().eventLoop().execute(() -> {
             try {
                 Thread.sleep(5 * 1000);
-                channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer("hello, 客户端~(>^ω^<)喵3", CharsetUtil.UTF_8));
+                channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer("hello, 客户端--------------3", CharsetUtil.UTF_8));
                 System.out.println("channel code=" + channelHandlerContext.channel().hashCode());
             } catch (Exception ex) {
                 System.out.println("发生异常" + ex.getMessage());
@@ -67,7 +63,7 @@ public class NettyServerHandler1 extends ChannelInboundHandlerAdapter {
         channelHandlerContext.channel().eventLoop().schedule(() -> {
             try {
                 Thread.sleep(5 * 1000);
-                channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer("hello, 客户端~(>^ω^<)喵4", CharsetUtil.UTF_8));
+                channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer("hello, 客户端--------------4", CharsetUtil.UTF_8));
                 System.out.println("channel code=" + channelHandlerContext.channel().hashCode());
             } catch (Exception ex) {
                 System.out.println("发生异常" + ex.getMessage());
@@ -75,18 +71,6 @@ public class NettyServerHandler1 extends ChannelInboundHandlerAdapter {
         }, 5, TimeUnit.SECONDS);
 
         System.out.println("go on ...");
-
-//        System.out.println("服务器读取线程 " + Thread.currentThread().getName() + " channle =" + ctx.channel());
-//        System.out.println("server ctx =" + channelHandlerContext);
-//        System.out.println("看看channel 和 pipeline的关系");
-//        Channel channel = channelHandlerContext.channel();
-//        ChannelPipeline pipeline = channelHandlerContext.pipeline(); //本质是一个双向链接, 出站入站
-//
-//        //将 msg 转成一个 ByteBuf
-//        //ByteBuf 是 Netty 提供的，不是 NIO 的 ByteBuffer.
-//        ByteBuf buf = (ByteBuf) msg;
-//        System.out.println("客户端发送消息是:" + buf.toString(CharsetUtil.UTF_8));
-//        System.out.println("客户端地址:" + channel.remoteAddress());
     }
 
     //数据读取完毕
@@ -95,7 +79,8 @@ public class NettyServerHandler1 extends ChannelInboundHandlerAdapter {
         //writeAndFlush 是 write + flush
         //将数据写入到缓存，并刷新
         //一般讲，我们对这个发送的数据进行编码
-        ctx.writeAndFlush(Unpooled.copiedBuffer("hello, 客户端~(>^ω^<)喵1", CharsetUtil.UTF_8));
+        ctx.writeAndFlush(Unpooled.copiedBuffer("hello, 客户端--------------1", CharsetUtil.UTF_8));
+        //TODO:由于channelRead是新起线程池运行，线程运行的顺序就是位置的，加上有sleep操作，所以这条语句会先输出
     }
 
     //处理异常, 一般是需要关闭通道

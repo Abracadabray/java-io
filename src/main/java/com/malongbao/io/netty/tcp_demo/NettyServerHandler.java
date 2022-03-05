@@ -5,7 +5,6 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.ChannelPipeline;
 import io.netty.util.CharsetUtil;
 
 /**
@@ -42,7 +41,8 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         // writeAndFlush 是 write + flush
         // 将数据写入到缓存，并刷新
         // 一般讲，我们对这个发送的数据进行编码
-        channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer("hello, 客户端~(>^ω^<)喵", CharsetUtil.UTF_8));
+        System.out.println("channelReadComplete......");
+        channelHandlerContext.writeAndFlush(Unpooled.copiedBuffer("hello, 客户端--------------", CharsetUtil.UTF_8));
     }
 
     //发生异常后, 一般是需要关闭通道
