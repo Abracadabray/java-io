@@ -1,0 +1,18 @@
+package com.malongbao.io.netty_rpc_demo;
+
+/**
+ * Description:
+ * date: 2022/3/17 17:41
+ *
+ * @author Hy
+ * @since JDK 1.8
+ */
+//ServerBootstrap 会启动一个服务提供者，就是 NettyServer
+public class ServerBootstrap {
+    public static void main(String[] args) {
+
+        //代码代填..
+        NettyServer.startServer("127.0.0.1", 7000);
+    }
+}
+
